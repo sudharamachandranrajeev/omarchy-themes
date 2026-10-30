@@ -14,7 +14,6 @@
 set -euo pipefail
 
 here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-settings=${XDG_CONFIG_HOME:-$HOME/.config}/omarchy-themes/settings.toml
 build=${XDG_STATE_HOME:-$HOME/.local/state}/omarchy-themes/boot-unlock
 name=omarchy-themes
 dest=/usr/share/plymouth/themes/$name
