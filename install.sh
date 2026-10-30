@@ -131,4 +131,4 @@ if (($# == 1)); then
     say "Switch with: omarchy theme set $1"
   fi
 fi
-say "Optional: match the boot unlock screen with: omarchy plymouth switcher"
+say "Optional: an animated boot unlock screen with your own text: ./boot-unlock.sh --preview"

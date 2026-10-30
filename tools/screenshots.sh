@@ -2,7 +2,11 @@
 # Make the README images for one theme in docs/screenshots/<slug>/.
 # Everything comes from the theme's own files, never from a screen capture.
 #
-#   tools/screenshots.sh <slug>
+#   tools/screenshots.sh <slug> [--boot-unlock]
+#
+# --boot-unlock also records boot-unlock.gif: it runs ./boot-unlock.sh --preview
+# (with the theme's name as the text) and captures its window with grim, so it
+# needs a Hyprland session. Keep the screen still while it records.
 
 set -euo pipefail
 
@@ -39,5 +43,25 @@ for overlay in "$root"/icons/"$slug"/*/; do
   magick montage "$tmp"/*.png -tile 8x -geometry 96x96+12+12 -background "$bg" "$out/icons.png"
   rm -rf "$tmp"
 done
+
+if [[ ${2:-} == "--boot-unlock" ]]; then
+  tmp=$(mktemp -d)
+  # Show an empty workspace first so the preview opens there with only the wallpaper behind it:
+  # windows are slightly see-through, and nothing from the desktop may end up in the image.
+  home_ws=$(hyprctl activeworkspace -j | jq .id)
+  empty_ws=$(($(hyprctl workspaces -j | jq '[.[].id] | max') + 1))
+  hyprctl dispatch "hl.dsp.focus({ workspace = \"$empty_ws\" })" >/dev/null
+  XDG_CONFIG_HOME=$tmp/config XDG_STATE_HOME=$tmp/state "$root/boot-unlock.sh" --preview "$slug" >/dev/null &
+  sleep 7 # the preview shows the password box after 6 seconds
+  geometry=$(hyprctl clients -j | jq -r --argjson ws "$empty_ws" \
+    '.[] | select(.class == "Plymouthd" and .workspace.id == $ws) | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | head -1)
+  [[ -n $geometry ]] || { hyprctl dispatch "hl.dsp.focus({ workspace = \"$home_ws\" })" >/dev/null; echo "No preview window on workspace $empty_ws" >&2; exit 1; }
+  for i in $(seq -w 1 50); do grim -g "$geometry" "$tmp/frame-$i.png"; sleep 0.06; done
+  hyprctl dispatch "hl.dsp.focus({ workspace = \"$home_ws\" })" >/dev/null
+  wait
+  magick -delay 8 -loop 0 "$tmp"/frame-*.png -gravity center -crop 72%x56%+0+40 +repage \
+    -resize 900x -layers Optimize "$out/boot-unlock.gif"
+  rm -rf "$tmp"
+fi
 
 ls -la "$out"

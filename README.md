@@ -25,7 +25,7 @@ New themes are added here as they are made. Each one is also published as its ow
 - 👁️ **Easy to read**: every text colour passes the WCAG AA contrast test (4.5 to 1), and look-alike colours are kept apart.
 - 🖼️ **Original wallpapers**: 8 per theme at 4K, plus 21:9 versions for ultrawide monitors.
 - 🎬 **Intro videos**: a 6-second animation for each wallpaper that settles on the still image.
-- 🔒 **Matching lock and boot screens**: themed lock-screen card and a boot unlock logo.
+- 🔒 **Matching lock and boot screens**: themed lock-screen card, and an animated boot unlock screen with your own text.
 - 📁 **Icons**: a small icon set drawn for the theme (folders, bin, terminal). Every other icon comes from Yaru.
 - 🌙 **Screensaver art**: the screensaver shows the theme's own picture while that theme is active.
 - 🛡️ **Safe to try**: nothing outside your theme folders changes, and `./install.sh --remove` undoes it.
@@ -53,7 +53,7 @@ A classic spooky night: a night-violet sky, bone-white text, jack-o'-lantern ora
 
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/hallowed-night/unlock.jpg" alt="Boot unlock screen with dripping orange Omarchy logo"><br><sub>Boot unlock screen</sub></td>
+<td width="50%"><img src="docs/screenshots/hallowed-night/boot-unlock.gif" alt="Animated boot unlock screen: candle-lit HALLOWED NIGHT text dripping green slime while bats fly past"><br><sub>Animated boot unlock screen (<code>./boot-unlock.sh</code>)</sub></td>
 <td width="50%"><img src="docs/screenshots/hallowed-night/screensaver.jpg" alt="Jack-o'-lantern screensaver art"><br><sub>Screensaver art</sub></td>
 </tr>
 <tr>
@@ -81,7 +81,7 @@ This gives you everything, including the icons, screensaver art and ultrawide wa
    ```
    Or name the theme directly: `./install.sh hallowed-night`
 4. Answer **Yes** when it asks to switch to the theme.
-5. Optional: to theme the boot unlock screen too, run `omarchy plymouth switcher` and pick the theme. It asks for your password because it changes a system file.
+5. Optional: theme the boot unlock screen too (the password screen before Omarchy starts). See [Animated boot unlock screen](#%EF%B8%8F-animated-boot-unlock-screen).
 
 ### Option B: colours and wallpapers only
 
@@ -90,6 +90,31 @@ Use Omarchy's own installer. You get the colours, wallpapers, intro videos and l
 ```bash
 omarchy theme install https://github.com/sudharamachandranrajeev/omarchy-hallowed-night-theme
 ```
+
+### 🕯️ Animated boot unlock screen
+
+This replaces the Omarchy logo on the boot password screen with your own text. The text glows like a candle, slime drips off the letters, and bats fly past. It uses the current theme's colours.
+
+1. Look at it first. This opens it in a window for 15 seconds and changes nothing:
+   ```bash
+   ./boot-unlock.sh --preview
+   ```
+   The first run makes a settings file at `~/.config/omarchy-themes/settings.toml`.
+2. To change the text or font, open that file and edit it:
+   ```toml
+   [boot_unlock]
+   text = "HALLOWED NIGHT"   # up to 32 letters, digits, spaces or . , ! ? ' & : + -
+   font = "C059:bold"        # any installed font; list them with: fc-list : family style
+   ```
+   Then run `./boot-unlock.sh --preview` again to see it.
+3. Install it. It asks for your password, because the boot screen is a system file:
+   ```bash
+   ./boot-unlock.sh
+   ```
+   You see it the next time you start the computer.
+4. To go back to Omarchy's own boot screen: `./boot-unlock.sh --restore`
+
+Your text stays on your computer. It is drawn locally and never added to this repository.
 
 ### Switch back or remove
 
@@ -133,6 +158,18 @@ While a collection theme is active, your own art is kept in `~/.config/omarchy/b
 </details>
 
 <details>
+<summary><b>The boot screen went back to the Omarchy logo</b></summary>
+
+Picking a logo with `omarchy plymouth switcher` sets Omarchy's own boot screen again, and an Omarchy update that refreshes the boot screen may do the same. Run `./boot-unlock.sh` again to bring yours back.
+</details>
+
+<details>
+<summary><b>The boot screen preview does not open</b></summary>
+
+The preview needs `bubblewrap` (`omarchy pkg add bubblewrap`) and Xwayland, which Omarchy has by default. Installing with `./boot-unlock.sh` does not need either.
+</details>
+
+<details>
 <summary><b>Where are the ultrawide wallpapers?</b></summary>
 
 The installer adds them only when a monitor is wider than 21:9. You can also copy them from `wallpapers/<theme>/ultrawide/` into `~/.config/omarchy/backgrounds/<theme>/`.
@@ -164,8 +201,8 @@ generators/hallowed_branding.py themes/hallowed-night icons/hallowed-night
 # Checks: required files, contrast, icon names, stale Omarchy 3 files
 tools/check.py
 
-# README images, then the stand-alone theme repo
-tools/screenshots.sh hallowed-night
+# README images (add --boot-unlock to record the boot screen GIF), then the stand-alone theme repo
+tools/screenshots.sh hallowed-night --boot-unlock
 tools/publish.sh hallowed-night          # add --push to publish
 ```
 
@@ -174,7 +211,7 @@ To add a theme: make `themes/<slug>/` with a `colors.toml` (line 1 `# Name — t
 
 ## Credits
 
-- Built for [Omarchy](https://github.com/omacom/omarchy). Each `unlock.png` is a recoloured Omarchy wordmark (MIT).
+- Built for [Omarchy](https://github.com/omacom/omarchy). Each `unlock.png` is a recoloured Omarchy wordmark (MIT). The animated boot screen script builds on Omarchy's Plymouth script and uses its password box images (MIT).
 - Icons not drawn here come from [Yaru](https://github.com/ubuntu/yaru).
 - Screensaver animation by Omarchy's `ttfx` effects.
 

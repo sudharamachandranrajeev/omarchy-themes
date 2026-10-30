@@ -15,4 +15,4 @@ jobs:
       - name: Check every theme (files, contrast, icons, stale Omarchy 3 files)
         run: python3 tools/check.py
       - name: Lint shell scripts
-        run: shellcheck install.sh tools/publish.sh hooks/*
+        run: shellcheck install.sh boot-unlock.sh tools/*.sh hooks/*
