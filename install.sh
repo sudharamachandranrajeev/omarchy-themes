@@ -47,7 +47,7 @@ is_ultrawide() {
 }
 
 install_theme() {
-  local slug=$1 dest=$themes_dir/$1 icons name
+  local slug=$1 dest=$themes_dir/$1 name
   valid_slug "$slug"
 
   if [[ -e $dest ]]; then
