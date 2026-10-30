@@ -1,0 +1,13 @@
+# Lock screen card: candle-lit violet glass over the blurred wallpaper.
+# Pumpkin-to-violet border while idle, toxic green while checking, blood red on a wrong password.
+background       = "#0a0710"
+background-alpha = 0.72
+text             = "#fff8e8"
+placeholder      = "#a596b4"
+text-error       = "#ff5f5f"
+border           = "hyprland.active-border"
+border-active    = "#9be564"
+border-error     = "#ff5f5f"
+border-alpha     = 1.0
+selection        = "#ff7a1a"
+selection-alpha  = 0.45

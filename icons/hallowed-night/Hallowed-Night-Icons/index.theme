@@ -1,0 +1,19 @@
+[Icon Theme]
+Name=Hallowed-Night-Icons
+Comment=Hallowed Night overlay: pumpkin folders, cauldron bin, bat terminal. Everything else comes from Yaru-dark.
+Inherits=Yaru-dark,hicolor
+Directories=scalable/places,scalable/apps
+
+[scalable/places]
+Context=Places
+Size=128
+MinSize=8
+MaxSize=512
+Type=Scalable
+
+[scalable/apps]
+Context=Applications
+Size=128
+MinSize=8
+MaxSize=512
+Type=Scalable

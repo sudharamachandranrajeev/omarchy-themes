@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><defs>
+<linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffa448"/><stop offset="1" stop-color="#e2600c"/></linearGradient>
+<linearGradient id="back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4500c"/><stop offset="1" stop-color="#8f3a08"/></linearGradient>
+<linearGradient id="pot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2752"/><stop offset="1" stop-color="#140e1c"/></linearGradient>
+<linearGradient id="screen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#221830"/><stop offset="1" stop-color="#0a0710"/></linearGradient>
+<filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs><path d="M10,26 q0,-6 6,-6 h30 l10,10 h56 q6,0 6,6 v66 q0,6 -6,6 H16 q-6,0 -6,-6 Z" fill="url(#back)"/><path d="M8,44 q0,-6 6,-6 h100 q6,0 6,6 v58 q0,8 -8,8 H16 q-8,0 -8,-8 Z" fill="url(#body)"/><path d="M8,44 q0,-6 6,-6 h100 q6,0 6,6 v4 H8 Z" fill="#ffc07a" opacity="0.5"/><g fill="#ffd36b" filter="url(#g)"><path d="M38,66 l10,-12 l10,12 z M70,66 l10,-12 l10,12 z"/><path d="M36,80 Q64,104 92,80 Q64,90 36,80 Z"/></g></svg>

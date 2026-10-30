@@ -1,0 +1,20 @@
+#!/bin/bash
+# omarchy-themes: show a theme's own screensaver art while that theme is active.
+#
+# Omarchy's screensaver always plays ~/.config/omarchy/branding/screensaver.txt.
+# When the theme just set ships a screensaver.txt, this copies it in and keeps
+# the user's own art in screensaver.txt.pre-omarchy-themes. Any theme without
+# one gets the user's art back. Installed by omarchy-themes/install.sh.
+
+branding=~/.config/omarchy/branding/screensaver.txt
+backup=~/.config/omarchy/branding/screensaver.txt.pre-omarchy-themes
+theme_dir=$(omarchy-theme-dir "$1" 2>/dev/null)
+theme_art=$theme_dir/screensaver.txt
+
+if [[ -n $theme_dir && -f $theme_art && ! -L $theme_art ]]; then
+  mkdir -p "${branding%/*}"
+  [[ -f $backup || ! -f $branding ]] || cp "$branding" "$backup"
+  cp "$theme_art" "$branding"
+elif [[ -f $backup ]]; then
+  mv "$backup" "$branding"
+fi

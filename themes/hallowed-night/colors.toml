@@ -1,0 +1,37 @@
+# Hallowed Night — a classic spooky-night theme for Omarchy.
+# Night-violet sky, bone-white text, jack-o'-lantern orange, toxic green.
+# Every text colour clears WCAG AA (4.5:1) on the background; see tools/contrast.py.
+mode = "dark"
+
+accent = "#ff7a1a"
+selection = "#3b2752"
+muted = "#7a6890"
+
+background = "#140e1c"
+dark_background = "#0f0a16"
+darker_background = "#0a0710"
+lighter_background = "#221830"
+
+foreground = "#ece3d0"
+dark_foreground = "#a596b4"
+light_foreground = "#d6cbb6"
+bright_foreground = "#fff8e8"
+
+hyprland_active_border = "rgba(ff7a1aee) rgba(b44dffee) 45deg"
+hyprland_inactive_border = "rgba(3b2752aa)"
+
+red = "#ff5f5f"
+yellow = "#ffe05c"
+orange = "#ff8a2b"
+green = "#9be564"
+cyan = "#7fe0d0"
+blue = "#a497ff"
+magenta = "#d98cff"
+brown = "#b0784a"
+
+bright_red = "#ff8a8a"
+bright_yellow = "#ffe88f"
+bright_green = "#bdf08f"
+bright_cyan = "#a8eee3"
+bright_blue = "#c3baff"
+bright_magenta = "#e8b5ff"
