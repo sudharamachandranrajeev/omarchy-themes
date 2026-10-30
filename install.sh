@@ -2,12 +2,13 @@
 # Install or remove themes from the omarchy-themes collection.
 #
 #   ./install.sh                     pick themes from a list
-#   ./install.sh hallowed-night      install one or more themes by name
-#   ./install.sh --remove hallowed-night
+#   ./install.sh halloween-night     install one or more themes by name
+#   ./install.sh --remove halloween-night
 #
 # Installing a theme from here (rather than `omarchy theme install <url>`)
 # also installs its extras: the matching icon theme, the screensaver-art hook,
-# and ultrawide wallpapers when a monitor is wider than 21:9.
+# and ultrawide wallpapers when a monitor is wider than 21:9. It also adds
+# "Theme Customiser" (./customise.sh) under Style in the Omarchy menu.
 
 set -euo pipefail
 
@@ -131,4 +132,5 @@ if (($# == 1)); then
     say "Switch with: omarchy theme set $1"
   fi
 fi
-say "Optional: an animated boot unlock screen with your own text: ./boot-unlock.sh --preview"
+"$here/customise.sh" --add-menu
+say "Change accent colours and the animated boot screen with ./customise.sh."

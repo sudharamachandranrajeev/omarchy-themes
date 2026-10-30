@@ -1,4 +1,4 @@
-"""Hallowed Night artwork: eight procedural Halloween scenes as SVG.
+"""Halloween Night artwork: eight procedural Halloween scenes as SVG.
 
 Every scene is a function scene(W, H, t) -> (static_svg_body, animated_svg_body).
 t runs 0..1 over the intro video; t = 1 is the still wallpaper, so the intro

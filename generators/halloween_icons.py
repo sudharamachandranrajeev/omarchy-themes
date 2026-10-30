@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Hallowed Night icon overlay: pumpkin folders, a cauldron bin, a bat terminal.
+"""Halloween Night icon overlay: pumpkin folders, a cauldron bin, a bat terminal.
 
-Usage: generators/hallowed_icons.py <out_dir>
+Usage: generators/halloween_icons.py <out_dir>
 Writes a freedesktop icon theme that inherits Yaru-dark for everything else.
 """
 import os
 import sys
 
-NAME = "Hallowed-Night-Icons"
+NAME = "Halloween-Night-Icons"
 INK = "#2a1838"
 GLOW = "#ffd36b"
 TOXIC = "#9be564"
@@ -81,7 +81,7 @@ def terminal():
 
 INDEX = f"""[Icon Theme]
 Name={NAME}
-Comment=Hallowed Night overlay: pumpkin folders, cauldron bin, bat terminal. Everything else comes from Yaru-dark.
+Comment=Halloween Night overlay: pumpkin folders, cauldron bin, bat terminal. Everything else comes from Yaru-dark.
 Inherits=Yaru-dark,hicolor
 Directories=scalable/places,scalable/apps
 

@@ -1,10 +1,10 @@
--- Hallowed Night: jack-o'-lantern orange fading to witch violet on the
--- focused window, a faint ember glow behind it, and dusk-violet when idle.
--- Only colours and shadows change; gaps, input and bindings stay yours.
-local active_border_color = { colors = { "rgba(ff7a1aee)", "rgba(b44dffee)" }, angle = 45 }
-local inactive_border_color = "rgba(3b2752aa)"
-local active_shadow_color = "rgba(ff7a1a40)"
-local inactive_shadow_color = "rgba(0a071066)"
+-- Monograph: a single brass rule around the focused window, graphite when
+-- idle, and a soft ink shadow. Only colours and shadows change; gaps, input
+-- and bindings stay yours.
+local active_border_color = "rgba(d4ad6aee)"
+local inactive_border_color = "rgba(2e323baa)"
+local active_shadow_color = "rgba(0c0e1199)"
+local inactive_shadow_color = "rgba(0c0e1166)"
 
 hl.config({
   general = {

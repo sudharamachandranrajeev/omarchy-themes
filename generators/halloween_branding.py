@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Hallowed Night branding: unlock logo, screensaver art and theme previews.
+"""Halloween Night branding: unlock logo, screensaver art and theme previews.
 
-Usage: generators/hallowed_branding.py <theme_dir> <icons_dir>
+Usage: generators/halloween_branding.py <theme_dir> <icons_dir>
 Run after render.py has written <theme_dir>/backgrounds/1-graveyard-moon.png
-and hallowed_icons.py has written <icons_dir>/Hallowed-Night-Icons.
+and halloween_icons.py has written <icons_dir>/Halloween-Night-Icons.
 
 Writes into <theme_dir>: unlock.png, screensaver.txt, preview.png,
 preview-unlock.png. Needs rsvg-convert, ImageMagick (magick) and an Omarchy
@@ -134,7 +134,7 @@ def preview_unlock(theme, c):
 # --------------------------------------------------------- preview.png
 
 CODE = [
-    [("kw", "local "), ("fg", "spooky "), ("op", "= "), ("fn", "require"), ("op", "("), ("str", '"hallowed.night"'), ("op", ")")],
+    [("kw", "local "), ("fg", "spooky "), ("op", "= "), ("fn", "require"), ("op", "("), ("str", '"halloween.night"'), ("op", ")")],
     [],
     [("com", "-- carve a lantern for every guest at the door")],
     [("kw", "function "), ("fg", "spooky."), ("fn", "carve"), ("op", "("), ("par", "pumpkin"), ("op", ", "), ("par", "guests"), ("op", ")")],
@@ -215,7 +215,7 @@ def preview(theme, icons, c):
         if n == 0:
             o.append(f'<rect x="{rx + 10}" y="{fy + 60}" width="154" height="30" rx="6" fill="{c["selection"]}"/>')
         o.append(f'<text x="{rx + 24}" y="{fy + 81 + n * 40}" font-size="15" font-family="sans-serif" fill="{c["foreground"]}">{s}</text>')
-    places = os.path.join(icons, "Hallowed-Night-Icons", "scalable", "places")
+    places = os.path.join(icons, "Halloween-Night-Icons", "scalable", "places")
     grid = [("user-desktop", "Desktop"), ("folder-documents", "Documents"), ("folder-download", "Downloads"),
             ("folder-music", "Music"), ("folder-pictures", "Pictures"), ("folder-videos", "Videos"),
             ("folder", "Spells"), ("user-trash-full", "Trash")]

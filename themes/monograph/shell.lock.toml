@@ -1,0 +1,13 @@
+# Lock screen card: a sheet of ink-dark paper over the blurred wallpaper.
+# Brass rule while idle, sage while checking, red on a wrong password.
+background       = "#0c0e11"
+background-alpha = 0.78
+text             = "#faf7f0"
+placeholder      = "#a9a59b"
+text-error       = "#e4776c"
+border           = "hyprland.active-border"
+border-active    = "#9fc48a"
+border-error     = "#e4776c"
+border-alpha     = 1.0
+selection        = "#d4ad6a"
+selection-alpha  = 0.4

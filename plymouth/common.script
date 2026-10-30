@@ -1,7 +1,8 @@
 # omarchy-themes animated boot unlock screen.
 # Based on Omarchy's Plymouth script (MIT, https://github.com/omacom/omarchy).
-# Adds a candle flicker on the text, slime dripping off the letters and bats
-# flying past. generators/boot_unlock.py fills in the @...@ values.
+# generators/boot_unlock.py puts the theme's animation (plymouth/<style>.script)
+# in the marked place below and fills in the other placeholders. The style defines
+# animate(), called on every frame.
 
 Window.SetBackgroundTopColor(@BACKGROUND@);
 Window.SetBackgroundBottomColor(@BACKGROUND@);
@@ -13,100 +14,13 @@ logo.y = Window.GetHeight() / 2 - logo.image.GetHeight() / 2;
 logo.sprite.SetPosition(logo.x, logo.y, 0);
 logo.sprite.SetOpacity(1);
 
-#----------------------------------------- Candle, slime and bats --------------------------------
-
 global.tick = 0;  # frames since the splash started (50 FPS); never reset, unlike animation_frame
-
-# Candle: a halo behind the text and a brighter copy over it, both flickering.
-glow.image = Image("glow.png");
-glow.sprite = Sprite(glow.image);
-glow.sprite.SetPosition(logo.x - @GLOW_PAD@, logo.y - @GLOW_PAD@, -1);
-flare.sprite = Sprite(Image("flare.png"));
-flare.sprite.SetPosition(logo.x, logo.y, 1);
-flare.sprite.SetOpacity(0);
-global.gutter = 0;  # frames left in a sudden dim, like a draught on the flame
-
-# Slime: each drip grows from a letter foot, lets go of a drop, and grows again.
-stem.image = Image("stem.png");
-drop.image = Image("drop.png");
-drip_count = @DRIP_COUNT@;
-@DRIPS@
-for (i = 0; i < drip_count; i++) {
-  drip[i].stem = Sprite();
-  drip[i].bulb = Sprite(drop.image.Scale(drip[i].w + 2, drip[i].w + 2));
-  drip[i].bulb.SetZ(2);
-  drip[i].falling = Sprite(drop.image.Scale(drip[i].w + 2, drip[i].w + 2));
-  drip[i].falling.SetZ(2);
-  drip[i].falling.SetOpacity(0);
-}
-
-# Bats: three silhouettes crossing the screen behind the text at different heights and speeds.
-bat_up.image = Image("bat-up.png");
-bat_down.image = Image("bat-down.png");
-bat_scale[0] = 0.75;  bat_period[0] = 11;  bat_height[0] = 0.22;  bat_dir[0] = 1;
-bat_scale[1] = 0.5;  bat_period[1] = 15;  bat_height[1] = 0.70;  bat_dir[1] = -1;
-bat_scale[2] = 0.35; bat_period[2] = 19;  bat_height[2] = 0.38;  bat_dir[2] = 1;
-for (i = 0; i < 3; i++) {
-  bat[i].up = bat_up.image.Scale(bat_up.image.GetWidth() * bat_scale[i], bat_up.image.GetHeight() * bat_scale[i]);
-  bat[i].down = bat_down.image.Scale(bat_down.image.GetWidth() * bat_scale[i], bat_down.image.GetHeight() * bat_scale[i]);
-  bat[i].sprite = Sprite(bat[i].up);
-  bat[i].sprite.SetZ(-2);
-  bat[i].sprite.SetOpacity(0.85);
-}
 
 fun fraction(x) {
   return x - Math.Int(x);
 }
 
-fun animate() {
-  global.tick++;
-  t = global.tick / 50.0;
-
-  # Candle flicker: three out-of-step waves plus the odd gutter.
-  if (global.gutter > 0) global.gutter--;
-  else if (Math.Random() < 0.006) global.gutter = 6 + Math.Int(Math.Random() * 10);
-  flame = 0.55 + 0.18 * Math.Sin(t * 5.1) + 0.12 * Math.Sin(t * 11.3 + 1) + 0.08 * Math.Sin(t * 23.9 + 2);
-  if (global.gutter > 0) flame = flame * 0.35;
-  glow.sprite.SetOpacity(Math.Clamp(flame, 0.1, 1));
-  flare.sprite.SetOpacity(Math.Clamp((flame - 0.55) * 1.4, 0, 0.45));
-
-  for (i = 0; i < drip_count; i++) {
-    u = fraction(t / drip[i].period + drip[i].phase);
-    if (u < 0.55) {
-      # Swell slowly, then faster as it gets heavy.
-      k = u / 0.55;
-      length = drip[i].len * (0.2 + 0.8 * k * k);
-    } else if (u < 0.62) {
-      # The drop lets go and the rest snaps back up.
-      length = drip[i].len * (1 - 0.8 * (u - 0.55) / 0.07);
-    } else {
-      length = drip[i].len * 0.2;
-    }
-    if (length < 1) length = 1;
-    drip[i].stem.SetImage(stem.image.Scale(drip[i].w, length));
-    drip[i].stem.SetPosition(logo.x + drip[i].x, logo.y + drip[i].y, 2);
-    drip[i].bulb.SetPosition(logo.x + drip[i].x - 1, logo.y + drip[i].y + length - drip[i].w / 2 - 1, 2);
-
-    if (u >= 0.55) {
-      fall_time = (u - 0.55) * drip[i].period;
-      drip[i].falling.SetPosition(logo.x + drip[i].x - 1,
-                                  logo.y + drip[i].y + drip[i].len + 450 * fall_time * fall_time, 2);
-      drip[i].falling.SetOpacity(Math.Clamp(1 - fall_time / 0.45, 0, 1));
-    } else {
-      drip[i].falling.SetOpacity(0);
-    }
-  }
-
-  for (i = 0; i < 3; i++) {
-    width = bat[i].up.GetWidth();
-    p = fraction(t / bat_period[i] + i * 0.31);
-    if (bat_dir[i] < 0) p = 1 - p;
-    bat[i].sprite.SetX(-width + (Window.GetWidth() + 2 * width) * p);
-    bat[i].sprite.SetY(Window.GetHeight() * bat_height[i] + 40 * Math.Sin(t * 1.7 + i * 2));
-    if (Math.Int(global.tick / (5 + i)) % 2 == 0) bat[i].sprite.SetImage(bat[i].up);
-    else bat[i].sprite.SetImage(bat[i].down);
-  }
-}
+@STYLE@
 
 # Use these to adjust the progress bar timing
 global.fake_progress_limit = 0.7;  # Target percentage for fake progress (0.0 to 1.0)

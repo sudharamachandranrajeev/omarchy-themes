@@ -1,4 +1,4 @@
-# Hallowed Night — a classic spooky-night theme for Omarchy.
+# Halloween Night — a classic spooky-night theme for Omarchy.
 # Night-violet sky, bone-white text, jack-o'-lantern orange, toxic green.
 # Every text colour clears WCAG AA (4.5:1) on the background; see tools/contrast.py.
 mode = "dark"

@@ -1,6 +1,6 @@
 [Icon Theme]
-Name=Hallowed-Night-Icons
-Comment=Hallowed Night overlay: pumpkin folders, cauldron bin, bat terminal. Everything else comes from Yaru-dark.
+Name=Halloween-Night-Icons
+Comment=Halloween Night overlay: pumpkin folders, cauldron bin, bat terminal. Everything else comes from Yaru-dark.
 Inherits=Yaru-dark,hicolor
 Directories=scalable/places,scalable/apps
 

@@ -1,4 +1,4 @@
-# Hallowed Night for btop: graphs glow from toxic green through candle
+# Halloween Night for btop: graphs glow from toxic green through candle
 # yellow to pumpkin orange, and run hot into blood red.
 theme[main_bg]="#140e1c"
 theme[main_fg]="#ece3d0"

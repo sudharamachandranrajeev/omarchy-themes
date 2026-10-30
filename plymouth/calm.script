@@ -1,0 +1,48 @@
+# Calm: the text fades up into place, a rule draws itself underneath, a soft
+# glow breathes behind it and a text cursor blinks at the end of the line.
+
+logo.sprite.SetOpacity(0);
+
+glow.image = Image("glow.png");
+glow.sprite = Sprite(glow.image);
+glow.sprite.SetPosition(logo.x - @GLOW_PAD@, logo.y - @GLOW_PAD@, -1);
+glow.sprite.SetOpacity(0);
+
+rule.image = Image("rule.png");
+rule.sprite = Sprite();
+rule.sprite.SetPosition(0, logo.y + @RULE_Y@, 1);
+
+cursor.sprite = Sprite(Image("cursor.png"));
+cursor.sprite.SetPosition(logo.x + @CURSOR_X@, logo.y + @CURSOR_Y@, 1);
+cursor.sprite.SetOpacity(0);
+
+fun ease(x) {
+  if (x < 0) x = 0;
+  if (x > 1) x = 1;
+  return 1 - (1 - x) * (1 - x) * (1 - x);
+}
+
+fun animate() {
+  global.tick++;
+  t = global.tick / 50.0;
+
+  # Fade up and settle over the first 1.2 seconds.
+  k = ease(t / 1.2);
+  logo.sprite.SetOpacity(k);
+  logo.sprite.SetY(logo.y + 14 * (1 - k));
+
+  # The rule grows out from the middle between 0.8 and 2 seconds.
+  r = ease((t - 0.8) / 1.2);
+  width = Math.Int(rule.image.GetWidth() * r);
+  if (width >= 2) {
+    rule.sprite.SetImage(rule.image.Scale(width, rule.image.GetHeight()));
+    rule.sprite.SetX(Window.GetWidth() / 2 - width / 2);
+  }
+
+  # A slow breath on the glow, once the text is in.
+  glow.sprite.SetOpacity(k * (0.35 + 0.25 * Math.Sin(t * 1.6)));
+
+  # The cursor blinks once a second after the text has settled.
+  if (t > 1.2 && fraction(t) < 0.55) cursor.sprite.SetOpacity(1);
+  else cursor.sprite.SetOpacity(0);
+}

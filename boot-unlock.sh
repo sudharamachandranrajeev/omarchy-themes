@@ -6,10 +6,10 @@
 #   ./boot-unlock.sh --preview [theme]   show it in a window for 15 seconds; changes nothing
 #   ./boot-unlock.sh --restore           go back to Omarchy's own boot screen
 #
-# The colours come from [theme], else the current theme when it is from this
-# collection, else Hallowed Night. The text and font live in
-# ~/.config/omarchy-themes/settings.toml, made on the first run. Change them
-# there, then run this again.
+# The look comes from [theme], else the current theme when it is from this
+# collection, else Halloween Night. Change the text, font and your name with
+# ./customise.sh (they are kept in ~/.config/omarchy-themes/settings.toml),
+# then run this again.
 
 set -euo pipefail
 
@@ -48,41 +48,17 @@ fi
 
 if [[ -n ${1:-} ]]; then
   slug=$1
-  [[ $slug =~ ^[a-z0-9][a-z0-9-]*$ && -f $here/themes/$slug/colors.toml ]] || die "No theme called '$slug' in this collection."
+  [[ $slug =~ ^[a-z0-9][a-z0-9-]*$ && -f $here/plymouth/$slug.toml ]] || die "No boot screen for a theme called '$slug' in this collection."
 else
   current=$(omarchy theme current 2>/dev/null || true)
   current=${current,,}
   slug=${current// /-}
-  [[ $slug =~ ^[a-z0-9][a-z0-9-]*$ && -f $here/themes/$slug/colors.toml ]] || slug=hallowed-night
+  [[ $slug =~ ^[a-z0-9][a-z0-9-]*$ && -f $here/plymouth/$slug.toml ]] || slug=halloween-night
 fi
-theme=$here/themes/$slug
-
-if [[ ! -f $settings ]]; then
-  title=$(sed -n '1s/^# \(.*\) — .*/\1/p' "$theme/colors.toml")
-  mkdir -p "$(dirname "$settings")"
-  cat >"$settings" <<EOF
-# Settings for omarchy-themes.
-# After changing anything here, run ./boot-unlock.sh again to rebuild the boot screen.
-
-[boot_unlock]
-# Text on the boot unlock screen: up to 32 letters, digits, spaces or . , ! ? ' & : + -
-text = "${title^^}"
-# Any font on this computer. List them with: fc-list : family style
-font = "C059:bold"
-EOF
-  say "Made $settings. Edit it to change the text or font."
-fi
-
-read_settings=$(python3 -c '
-import sys, tomllib
-with open(sys.argv[1], "rb") as f:
-    s = tomllib.load(f).get("boot_unlock", {})
-print(s.get("text", "")); print(s.get("font", "C059:bold"))' "$settings") || die "Could not read $settings. Check it is valid TOML."
-mapfile -t values <<<"$read_settings"
 
 rm -rf "$build"
-python3 "$here/generators/boot_unlock.py" "$theme" "${values[0]}" "${values[1]}" "$build"
-say "Built the boot screen: \"${values[0]}\" in $slug colours."
+text=$(python3 "$here/generators/boot_unlock.py" build "$slug" "$build")
+say "Built the boot screen: \"$text\" in $slug colours."
 
 if [[ $mode == preview ]]; then
   command -v bwrap >/dev/null || die "The preview needs bubblewrap: omarchy pkg add bubblewrap"

@@ -1,0 +1,5 @@
+# Boot unlock defaults for Monograph. {NAME} is your first name in capitals
+# ({name} keeps its case); "omarchy" means the font Omarchy currently uses.
+style = "calm"
+text = "WELCOME {NAME}"
+font = "omarchy:bold"

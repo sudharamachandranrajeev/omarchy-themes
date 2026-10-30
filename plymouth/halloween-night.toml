@@ -1,0 +1,5 @@
+# Boot unlock defaults for Halloween Night. Your own text and font go in
+# ~/.config/omarchy-themes/settings.toml (or use ./customise.sh).
+style = "spooky"
+text = "HALLOWEEN NIGHT"
+font = "C059:bold"

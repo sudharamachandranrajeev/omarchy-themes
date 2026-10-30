@@ -1,0 +1,37 @@
+# Monograph — a quiet, type-led theme for Omarchy.
+# Ink-dark paper, warm off-white text, one brass accent; the font does the talking.
+# Every text colour clears WCAG AA (4.5:1) on the background; see tools/contrast.py.
+mode = "dark"
+
+accent = "#d4ad6a"
+selection = "#2e323b"
+muted = "#7c8290"
+
+background = "#15171c"
+dark_background = "#111317"
+darker_background = "#0c0e11"
+lighter_background = "#1f2229"
+
+foreground = "#e8e4da"
+dark_foreground = "#a9a59b"
+light_foreground = "#d4d0c6"
+bright_foreground = "#faf7f0"
+
+hyprland_active_border = "rgba(d4ad6aee)"
+hyprland_inactive_border = "rgba(2e323baa)"
+
+red = "#e4776c"
+yellow = "#e8d27e"
+orange = "#e8975a"
+green = "#9fc48a"
+cyan = "#84c7c1"
+blue = "#8eaedb"
+magenta = "#c79ddb"
+brown = "#b28c6a"
+
+bright_red = "#f09a91"
+bright_yellow = "#f2e2a4"
+bright_green = "#bcd9ab"
+bright_cyan = "#a9dad5"
+bright_blue = "#b1c8ea"
+bright_magenta = "#dbbde8"

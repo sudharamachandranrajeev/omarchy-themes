@@ -6,7 +6,7 @@ Usage:
   generators/render.py intros     <theme> <out_dir> [--only NAME]
 
 Needs: rsvg-convert (librsvg), ffmpeg. <theme> is a module in generators/
-(for example hallowed_night) that exposes SCENES and svg().
+(for example halloween_night) that exposes SCENES and svg().
 """
 import argparse
 import importlib
