@@ -17,7 +17,7 @@
 
 A growing collection of themes for [Omarchy](https://omarchy.org), the Arch Linux and Hyprland setup.
 Each theme changes the whole desktop, not just the terminal.
-New themes are added here as they are made. Each one is also published as its own small repository, so `omarchy theme install` works too.
+New themes are added here as they are made. Every theme lives in this one repository.
 
 ## ✨ What you get
 
@@ -92,10 +92,6 @@ A quiet theme built around type. Every wallpaper is set in the Omarchy font (Jet
 
 ## 🚀 Get started
 
-There are two ways to install. Pick one.
-
-### Option A: the full set (recommended)
-
 This gives you everything, including the icons, screensaver art and ultrawide wallpapers.
 
 1. Open a terminal (<kbd>Super</kbd> + <kbd>Enter</kbd>).
@@ -112,18 +108,9 @@ This gives you everything, including the icons, screensaver art and ultrawide wa
 4. Answer **Yes** when it asks to switch to the theme.
 5. Optional: open the [Theme Customiser](#%EF%B8%8F-theme-customiser) to change the accent colour or theme the boot screen too.
 
-### Option B: colours and wallpapers only
-
-Use Omarchy's own installer. You get the colours, wallpapers, intro videos and lock screen, but not the icons or screensaver art.
-
-```bash
-omarchy theme install https://github.com/sudharamachandranrajeev/omarchy-halloween-night-theme
-omarchy theme install https://github.com/sudharamachandranrajeev/omarchy-monograph-theme
-```
-
 ## 🎛️ Theme Customiser
 
-One menu for the whole collection. Option A adds it to the Omarchy menu for you.
+One menu for the whole collection. The installer adds it to the Omarchy menu for you.
 
 1. Press <kbd>Super</kbd> + <kbd>Space</kbd>, choose **Style**, then **Theme Customiser**.
    Or run `./customise.sh` from the `omarchy-themes` folder.
@@ -171,7 +158,7 @@ Your name and text stay on your computer. They are drawn locally and never added
 ### Switch back or remove
 
 - To switch theme: use the Theme Customiser, <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Space</kbd>, or `omarchy theme set <name>`.
-- To remove a theme installed with Option A, switch to another theme first. Then use **Remove a theme** in the Theme Customiser, or run `./install.sh --remove halloween-night`.
+- To remove a theme, switch to another theme first. Then use **Remove a theme** in the Theme Customiser, or run `./install.sh --remove halloween-night`.
 
 ## 🧭 How it works
 
@@ -200,7 +187,7 @@ Omarchy passes the icon theme name straight to GTK, and a name that is not insta
 <details>
 <summary><b>The screensaver still shows my old art</b></summary>
 
-The art is swapped when you switch theme. Run `omarchy theme set halloween-night` once after installing. The screensaver hook only comes with Option A.
+The art is swapped when you switch theme. Run `omarchy theme set halloween-night` once after installing.
 </details>
 
 <details>
@@ -248,7 +235,7 @@ No. The themes use the Omarchy 4 theme format and ship no Omarchy 3 files (such 
 ## 🛠️ For developers
 
 <details>
-<summary>Build, check and publish</summary>
+<summary>Build and check</summary>
 
 All artwork is drawn by code, so every image can be rebuilt. You need `python3`, `rsvg-convert` (librsvg), ImageMagick, `ffmpeg` and an Omarchy install.
 
@@ -270,9 +257,8 @@ generators/monograph_branding.py themes/monograph
 # Checks: required files, contrast, icon names, stale Omarchy 3 files
 tools/check.py
 
-# README images (add --boot-unlock to record the boot screen GIF), then the stand-alone theme repo
+# README images (add --boot-unlock to record the boot screen GIF)
 tools/screenshots.sh halloween-night --boot-unlock
-tools/publish.sh halloween-night          # add --push to publish
 ```
 
 To add a theme: make `themes/<slug>/` with a `colors.toml` (line 1 `# Name — tagline`), add a generator in `generators/`, then run the steps above. `tools/check.py` runs on every push.

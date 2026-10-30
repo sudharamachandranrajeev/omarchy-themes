@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check collection themes before they are published.
+"""Check collection themes before they are committed.
 
 Usage: tools/check.py [themes/<slug> ...]   (default: every theme)
 Exits non-zero on any error. Warnings do not fail the check.
